@@ -4,7 +4,11 @@ all:
 	@echo "Select target"
 
 build:
+	npm install
 	npm run build
+
+pub:
+	rci x eva.ehmi.ec
 
 pkg:
 	rm -rf _build
