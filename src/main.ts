@@ -6,8 +6,7 @@ const eva = new Eva();
 const params = new URLSearchParams(window.location.search);
 
 enum ButtonKind {
-  ToggleStatus = "toggle.status",
-  ToggleValue = "toggle.value",
+  Toggle = "toggle",
   Value = "value",
   Run = "run"
 }
@@ -43,13 +42,8 @@ async function run_lmacro(oid: string) {
   await eva.action.run(oid, {}, true);
 }
 
-async function run_action_toggle(oid: string, kind: ButtonKind) {
-  if (kind == ButtonKind.ToggleStatus) {
-    await eva.action.toggle(oid, true);
-  } else {
-    let val = eva.value(oid) ? 0 : 1;
-    await eva.action.exec(oid, { status: 1, value: val }, true);
-  }
+async function run_action_toggle(oid: string) {
+  await eva.action.toggle(oid, true);
 }
 
 async function run_action_value(oid: string, input: HTMLInputElement) {
@@ -112,7 +106,7 @@ function init_dashboard(config: Config) {
     } else {
       entry.style.display = "none";
       if (!kind) {
-        kind = ButtonKind.ToggleStatus;
+        kind = ButtonKind.Toggle;
       }
     }
     switch (kind) {
@@ -144,8 +138,7 @@ function init_dashboard(config: Config) {
         });
         button2.innerHTML = "Apply";
         break;
-      case ButtonKind.ToggleStatus:
-      case ButtonKind.ToggleValue:
+      case ButtonKind.Toggle:
         label.className = "btn_label btn_label_slider";
         button = document.createElement("input");
         button.type = "checkbox";
@@ -160,7 +153,7 @@ function init_dashboard(config: Config) {
         button.addEventListener("change", function (event) {
           this.checked = !this.checked;
           button.disabled = true;
-          run_action_toggle(action.oid as string, kind as ButtonKind);
+          run_action_toggle(action.oid as string);
           event.preventDefault();
           event.stopPropagation();
         });
@@ -176,10 +169,7 @@ function init_dashboard(config: Config) {
             button2.disabled = state.act > 0;
           }
           switch (kind) {
-            case ButtonKind.ToggleStatus:
-              (button as HTMLInputElement).checked = state.status === 1;
-              break;
-            case ButtonKind.ToggleValue:
+            case ButtonKind.Toggle:
               (button as HTMLInputElement).checked = state.value === 1;
               break;
             case ButtonKind.Value:

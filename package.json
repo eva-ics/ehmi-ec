@@ -1,7 +1,6 @@
 {
   "name": "ehmi_ec",
-  "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,6 +13,6 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "@eva-ics/webengine": "^0.5.5"
+    "@eva-ics/webengine": "^0.5.7"
   }
 }
