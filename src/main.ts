@@ -51,7 +51,7 @@ async function run_action_value(oid: string, input: HTMLInputElement) {
   if (isNaN(val)) {
     val = input.value;
   }
-  await eva.action.exec(oid, { status: 1, value: val }, true);
+  await eva.action.exec(oid, { value: val }, true);
 }
 
 async function start(params: URLSearchParams) {
