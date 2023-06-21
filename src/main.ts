@@ -20,7 +20,7 @@ interface ButtonConfig {
   label?: string;
   kind?: ButtonKind;
   busy?: string;
-  input_width?: number;
+  input_size?: number;
 }
 
 function init_colors(params: URLSearchParams) {
@@ -123,7 +123,7 @@ function init_dashboard(config: Config) {
         button = document.createElement("input");
         button.type = "text";
         button.className = "text_input";
-        button.size = action.input_width || 4;
+        button.size = action.input_size || 4;
         entry.appendChild(button);
         button2 = document.createElement("button");
         button2.className = "apply";
